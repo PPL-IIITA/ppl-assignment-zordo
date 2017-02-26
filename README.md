@@ -9,5 +9,8 @@ To use in Linux based system:
 5. For Question 1: java -cp classes questions.Q1   
 6. For Question 2: java -cp classes questions.Q2 "value of k" (without quotes)  
     e.g. java -cp classes questions.Q2 5   
+For documentation open valentine/dist/javadoc/index.html   
+Class diagram in Valentine folder.
+    
 Redith Mehtani   
 RIT2015065  
