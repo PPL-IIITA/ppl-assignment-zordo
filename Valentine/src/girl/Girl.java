@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author redith
  */
-public class Girl {
+public abstract class Girl {
     private String name;
     private int maintaince;
     private int intelligence;
@@ -24,6 +24,7 @@ public class Girl {
     private String criteria;
     private double happiness;
     private ArrayList<Gift> giveme = new ArrayList<Gift>();
+    private ArrayList<Boy> ex = new ArrayList<Boy>();
 
     public ArrayList<Gift> getGiveme() {
         return giveme;
@@ -37,6 +38,11 @@ public class Girl {
         this.attractiveness = attractiveness;
         this.type = type;
         this.criteria = criteria;
+    }
+   public abstract void setHappiness();
+
+    public ArrayList<Boy> getEx() {
+        return ex;
     }
    
     public void setStatus(boolean status) {

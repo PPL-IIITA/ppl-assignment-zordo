@@ -15,6 +15,8 @@ import static java.lang.Math.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
+import java.util.Scanner;
 import valentine.Valentine;
 import static valentine.Valentine.Count;
 
@@ -26,7 +28,6 @@ public class Q2 {
     int gif;
     Gift[] gift;
     Gift[] ogift;
-    Q1 q1 = new Q1();
     Girl[] girl1 ;
     Girl[] girl2;
     int count=0;
@@ -34,8 +35,8 @@ public class Q2 {
             File tofa = new File("tofa.csv");
             String abstofa = tofa.getAbsolutePath();
              this.gif = Count(abstofa)-1;
-             girl1 = new Girl[q1.g];
-             girl2 = new Girl[q1.g];
+             girl1 = new Girl[Q1.g];
+             girl2 = new Girl[Q1.g];
              int i,j;
              gift = new Gift[gif];
              ogift = new Gift[gif];
@@ -64,24 +65,24 @@ public class Q2 {
             Date dateobj = new Date();
             //for(i=0;i<gif;i++)
               //  System.out.println(gift[i].getPrice());
-            for(i=0;i<q1.g;i++){
-                if((q1.girl[i].isStatus())){
-                    //System.out.println(q1.girl[i].getName());
-                    String crap=q1.girl[i].getBf().getType();
-                    String gfcrap = q1.girl[i].getType();
+            for(i=0;i<Q1.g;i++){
+                if((Q1.girl[i].isStatus())){
+                    //System.out.println(Q1.girl[i].getName());
+                    String crap=Q1.girl[i].getBf().getType();
+                    String gfcrap = Q1.girl[i].getType();
                     int sum = 0;
                     if(crap.equalsIgnoreCase("Miser")){
                         
                         for(j=0;j<gif;j++){
-                            if(sum<q1.girl[i].getMaintaince()){
+                            if(sum<Q1.girl[i].getMaintaince()){
                                 sum+=gift[j].getPrice();
-                                if(sum>q1.girl[i].getBf().getBudget()&&!(q1.girl[i].getGiveme().isEmpty())){
-                                q1.girl[i].getBf().setBudget(sum);
+                                if(sum>Q1.girl[i].getBf().getBudget()&&!(Q1.girl[i].getGiveme().isEmpty())){
+                                Q1.girl[i].getBf().setBudget(sum);
                                 
                                 
                             }
-                               q1.girl[i].getGiveme().add(gift[j]);
-                               String kya =q1.girl[i].getBf().getName()+" gifted object #"+gift[j]+"@"+df.format(dateobj)+" to "+q1.girl[i].getName()+" "+'\r'+'\n';
+                               Q1.girl[i].getGiveme().add(gift[j]);
+                               String kya =Q1.girl[i].getBf().getName()+" gifted object #"+gift[j]+"@"+df.format(dateobj)+" to "+Q1.girl[i].getName()+" "+'\r'+'\n';
                                System.out.print(kya);
                                try (BufferedWriter bw = new BufferedWriter(new FileWriter(out,true))) {
                                 bw.write(kya);
@@ -97,59 +98,59 @@ public class Q2 {
                         
                         
                         //System.out.println(sum);
-                            q1.girl[i].getBf().setHappiness((double)(q1.girl[i].getBf().getBudget()-sum));
-                            //System.out.println(q1.girl[i].getBf().getHappiness());
+                            Q1.girl[i].getBf().setHappiness((double)(Q1.girl[i].getBf().getBudget()-sum));
+                            //System.out.println(Q1.girl[i].getBf().getHappiness());
                          sum = 0;
-                         int size = q1.girl[i].getGiveme().size();
+                         int size = Q1.girl[i].getGiveme().size();
                          int k;
                         switch (gfcrap){
                             case "Choosy" :
                                 for(k=0;k<size;k++){
-                                    if(q1.girl[i].getGiveme().get(k).getType().equalsIgnoreCase("Luxury"))
-                                            sum+= 2*(q1.girl[i].getGiveme().get(k).getPrice());
+                                    if(Q1.girl[i].getGiveme().get(k).getType().equalsIgnoreCase("Luxury"))
+                                            sum+= 2*(Q1.girl[i].getGiveme().get(k).getPrice());
                                     else
-                                        sum+=(q1.girl[i].getGiveme().get(k).getPrice());
+                                        sum+=(Q1.girl[i].getGiveme().get(k).getPrice());
                                 }
                                 double stuff = log(sum);
-                                q1.girl[i].setHappiness(stuff);
+                                Q1.girl[i].setHappiness(stuff);
                                 break;
                             case "Normal" :
                                 for(k=0;k<size;k++){
-                                            sum+= (q1.girl[i].getGiveme().get(k).getPrice());
+                                            sum+= (Q1.girl[i].getGiveme().get(k).getPrice());
                                     
-                                        sum+=(q1.girl[i].getGiveme().get(k).getValue());
+                                        sum+=(Q1.girl[i].getGiveme().get(k).getValue());
                                 }
-                                q1.girl[i].setHappiness(sum);
+                                Q1.girl[i].setHappiness(sum);
                                 break;
                             case "Desperate" :
                                 for(k=0;k<size;k++){
-                                            sum+= (q1.girl[i].getGiveme().get(k).getPrice());
+                                            sum+= (Q1.girl[i].getGiveme().get(k).getPrice());
                                     
-                                        sum+=(q1.girl[i].getGiveme().get(k).getValue());
+                                        //sum+=(Q1.girl[i].getGiveme().get(k).getValue());
                                 }
                                 double exo = exp(sum);
-                                q1.girl[i].setHappiness(exo);
+                                Q1.girl[i].setHappiness(exo);
                                 break;
                             default :
                                 break;
                            
                         }
-                       // System.out.println(q1.girl[i].getHappiness());
+                       // System.out.println(Q1.girl[i].getHappiness());
                         
                         
                     }
                     else if(crap.equalsIgnoreCase("Generous")){
                         for(j=0;j<gif;j++){
-                            if(sum<q1.girl[i].getBf().getBudget()){
+                            if(sum<Q1.girl[i].getBf().getBudget()){
                                  
                                 sum+=gift[j].getPrice();
-                                if(sum>q1.girl[i].getBf().getBudget()&&!(q1.girl[i].getGiveme().isEmpty())){
+                                if(sum>Q1.girl[i].getBf().getBudget()&&!(Q1.girl[i].getGiveme().isEmpty())){
                                 sum-=gift[j].getPrice();
                                 
                             }
                                 else{
-                                q1.girl[i].getGiveme().add(gift[j]);
-                                String kya1 =q1.girl[i].getBf().getName()+" gifted object #"+gift[j]+"@"+df.format(dateobj)+" to "+q1.girl[i].getName()+" "+'\r'+'\n';
+                                Q1.girl[i].getGiveme().add(gift[j]);
+                                String kya1 =Q1.girl[i].getBf().getName()+" gifted object #"+gift[j]+"@"+df.format(dateobj)+" to "+Q1.girl[i].getName()+" "+'\r'+'\n';
                                 System.out.print(kya1);
                                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(out,true))) {
                                 bw.write(kya1);
@@ -165,56 +166,56 @@ public class Q2 {
                         
                         
                          sum = 0;
-                         int size = q1.girl[i].getGiveme().size();
+                         int size = Q1.girl[i].getGiveme().size();
                          int k;
                         switch (gfcrap){
                             case "Choosy" :
                                 for(k=0;k<size;k++){
-                                    if(q1.girl[i].getGiveme().get(k).getType().equalsIgnoreCase("Luxury"))
-                                            sum+= 2*(q1.girl[i].getGiveme().get(k).getPrice());
+                                    if(Q1.girl[i].getGiveme().get(k).getType().equalsIgnoreCase("Luxury"))
+                                            sum+= 2*(Q1.girl[i].getGiveme().get(k).getPrice());
                                     else
-                                        sum+=(q1.girl[i].getGiveme().get(k).getPrice());
+                                        sum+=(Q1.girl[i].getGiveme().get(k).getPrice());
                                 }
                                 double stuff = log(sum);
-                                q1.girl[i].setHappiness(stuff);
+                                Q1.girl[i].setHappiness(stuff);
                                 break;
                             case "Normal" :
                                 for(k=0;k<size;k++){
-                                            sum+= (q1.girl[i].getGiveme().get(k).getPrice());
+                                            sum+= (Q1.girl[i].getGiveme().get(k).getPrice());
                                     
-                                        sum+=(q1.girl[i].getGiveme().get(k).getValue());
+                                        sum+=(Q1.girl[i].getGiveme().get(k).getValue());
                                 }
-                                q1.girl[i].setHappiness(sum);
+                                Q1.girl[i].setHappiness(sum);
                                 break;
                             case "Desperate" :
                                 for(k=0;k<size;k++){
-                                            sum+= (q1.girl[i].getGiveme().get(k).getPrice());
+                                            sum+= (Q1.girl[i].getGiveme().get(k).getPrice());
                                     
-                                        sum+=(q1.girl[i].getGiveme().get(k).getValue());
+                                        //sum+=(Q1.girl[i].getGiveme().get(k).getValue());
                                 }
                                 double exo = exp(sum);
-                                q1.girl[i].setHappiness(exo);
+                                Q1.girl[i].setHappiness(exo);
                                 break;
                             default :
                                 break;
                            
                         }
-                        q1.girl[i].getBf().setHappiness(q1.girl[i].getHappiness());
-                        //System.out.println(q1.girl[i].getHappiness());
+                        Q1.girl[i].getBf().setHappiness(Q1.girl[i].getHappiness());
+                        //System.out.println(Q1.girl[i].getHappiness());
                         
                     }
                     else if(crap.equalsIgnoreCase("Geek")){
                         for(j=0;j<gif;j++){
-                            if(sum<q1.girl[i].getMaintaince()){
+                            if(sum<Q1.girl[i].getMaintaince()){
                                 sum+=gift[j].getPrice();
-                                if(sum>q1.girl[i].getBf().getBudget()&&!(q1.girl[i].getGiveme().isEmpty())){
-                                q1.girl[i].getBf().setBudget(sum);
+                                if(sum>Q1.girl[i].getBf().getBudget()&&!(Q1.girl[i].getGiveme().isEmpty())){
+                                Q1.girl[i].getBf().setBudget(sum);
                                 
                             }
                                 
                                 
-                                    q1.girl[i].getGiveme().add(gift[j]);
-                                    String kyay =q1.girl[i].getBf().getName()+" gifted object #"+gift[j]+"@"+df.format(dateobj)+" to "+q1.girl[i].getName()+" "+'\r'+'\n';
+                                    Q1.girl[i].getGiveme().add(gift[j]);
+                                    String kyay =Q1.girl[i].getBf().getName()+" gifted object #"+gift[j]+"@"+df.format(dateobj)+" to "+Q1.girl[i].getName()+" "+'\r'+'\n';
                                     System.out.print(kyay);
                                     try (BufferedWriter bw = new BufferedWriter(new FileWriter(out,true))) {
                                     bw.write(kyay);
@@ -233,9 +234,9 @@ public class Q2 {
                         for(;j<gif;j++){
                             if(gift[j].getType().equalsIgnoreCase("Luxury"))
                             {   sum+=gift[j].getPrice();
-                            if(sum<=q1.girl[i].getBf().getBudget()){
-                                q1.girl[i].getGiveme().add(gift[j]);
-                                String kyax =q1.girl[i].getBf().getName()+" gifted object #"+gift[j]+"@"+df.format(dateobj)+" to "+q1.girl[i].getName()+" "+'\r'+'\n';
+                            if(sum<=Q1.girl[i].getBf().getBudget()){
+                                Q1.girl[i].getGiveme().add(gift[j]);
+                                String kyax =Q1.girl[i].getBf().getName()+" gifted object #"+gift[j]+"@"+df.format(dateobj)+" to "+Q1.girl[i].getName()+" "+'\r'+'\n';
                                 System.out.print(kyax);
                                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(out,true))) {
                                 bw.write(kyax);
@@ -246,54 +247,54 @@ public class Q2 {
                                 break;}
                             else
                                 sum-=gift[j].getPrice();}
-                        }
-                        q1.girl[i].getBf().setHappiness((double)q1.girl[i].getIntelligence());
+                        } 
+                        Q1.girl[i].getBf().setHappiness((double)Q1.girl[i].getIntelligence());
                         sum = 0;
-                         int size = q1.girl[i].getGiveme().size();
+                         int size = Q1.girl[i].getGiveme().size();
                          int k;
                         switch (gfcrap){
                             case "Choosy" :
                                 for(k=0;k<size;k++){
-                                    if(q1.girl[i].getGiveme().get(k).getType().equalsIgnoreCase("Luxury"))
-                                            sum+= 2*(q1.girl[i].getGiveme().get(k).getPrice());
+                                    if(Q1.girl[i].getGiveme().get(k).getType().equalsIgnoreCase("Luxury"))
+                                            sum+= 2*(Q1.girl[i].getGiveme().get(k).getPrice());
                                     else
-                                        sum+=(q1.girl[i].getGiveme().get(k).getPrice());
+                                        sum+=(Q1.girl[i].getGiveme().get(k).getPrice());
                                 }
                                 double stuff = log(sum);
-                                q1.girl[i].setHappiness(stuff);
+                                Q1.girl[i].setHappiness(stuff);
                                 break;
                             case "Normal" :
                                 for(k=0;k<size;k++){
-                                            sum+= (q1.girl[i].getGiveme().get(k).getPrice());
+                                            sum+= (Q1.girl[i].getGiveme().get(k).getPrice());
                                     
-                                        sum+=(q1.girl[i].getGiveme().get(k).getValue());
+                                        sum+=(Q1.girl[i].getGiveme().get(k).getValue());
                                 }
-                                q1.girl[i].setHappiness(sum);
+                                Q1.girl[i].setHappiness(sum);
                                 break;
                             case "Desperate" :
                                 for(k=0;k<size;k++){
-                                            sum+= (q1.girl[i].getGiveme().get(k).getPrice());
+                                            sum+= (Q1.girl[i].getGiveme().get(k).getPrice());
                                     
-                                        sum+=(q1.girl[i].getGiveme().get(k).getValue());
+                                        //sum+=(Q1.girl[i].getGiveme().get(k).getValue());
                                 }
                                 double exo = exp(sum);
-                                q1.girl[i].setHappiness(exo);
+                                Q1.girl[i].setHappiness(exo);
                                 break;
                             default :
                                 break;
                            
                         }
-                        //System.out.println(q1.girl[i].getHappiness());
+                        //System.out.println(Q1.girl[i].getHappiness());
                     }
                 }
                 
                    
             }
-            for(i=0;i<q1.g;i++)
+            for(i=0;i<Q1.g;i++)
             {
-                if(q1.girl[i].isStatus()){
-                    girl1[count] = q1.girl[i];
-                    girl2[count] = q1.girl[i];
+                if(Q1.girl[i].isStatus()){
+                    girl1[count] = Q1.girl[i];
+                    girl2[count] = Q1.girl[i];
                    
                     count++;
                 }
@@ -344,20 +345,26 @@ public class Q2 {
             return sum;
         }
         public static void main(String[] args) throws IOException {
+            Q1.commit();
             Q2 q2 = new Q2();
-            int k = Integer.parseInt(args[0]);
-            if(k>q2.q1.c)
-                k = q2.q1.c;
-            //int n = q2.q1.g;
+            //Scanner sc = new Scanner(System.in);
+           // System.out.println("Enter k");
+            Random rand = new Random();
+            int k = rand.nextInt(Q1.c);
+            while((k = rand.nextInt(Q1.c))==0);
+            //int k = Integer.parseInt(args[0]);
+            if(k>Q1.c)
+                k = Q1.c;
+            //int n = q2.Q1.g;
             int i,j;
             
             System.out.println("Happy Couples Are:");
             for(i=q2.count-1;i>=q2.count-k;i--){
-                System.out.println(q2.girl1[i].getName()+" "+q2.girl1[i].getBf().getName());
+                System.out.println(q2.girl1[i].getBf().getName()+" "+q2.girl1[i].getName()+" ");
             }
             System.out.println("Compatible Couples Are:");
             for(i=q2.count-1;i>=q2.count-k;i--){
-                System.out.println(q2.girl2[i].getName()+" "+q2.girl2[i].getBf().getName());
+                System.out.println(q2.girl2[i].getBf().getName()+" "+q2.girl2[i].getName()+" ");
             }
             
     }

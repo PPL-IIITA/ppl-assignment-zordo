@@ -21,6 +21,15 @@ public class Rand {
         String[] gift = {"Utility","Luxury","Essential"};
         String[] boy = {"Geek","Generous","Miser"};
         String[] girl = {"Choosy","Desperate","Normal"};
+        String[] criteria ={"Rich","Attractive","Intelligent"};
+        File guys = new File("Guys.txt");
+        try (BufferedWriter bw7 = new BufferedWriter(new FileWriter(guys,false))) {
+                String commit;
+
+			bw7.write("");
+                        } catch (IOException e) {
+                            }
+        
         File ladki = new File("ladki1.csv");
         try (BufferedWriter bw1 = new BufferedWriter(new FileWriter(ladki,false))) {
                 String commit;
@@ -50,9 +59,9 @@ public class Rand {
         g = sc.nextInt();
         n = sc.nextInt();
         sc.close();*/
-        b= Integer.parseInt(args[0]);
-        g = Integer.parseInt(args[1]);
-        n = Integer.parseInt(args[2]);
+        b= random.nextInt(100);
+        g = random.nextInt(200);
+        n = random.nextInt(300);
         //System.out.println(b+" "+g+" "+n);
         int i,j;
         for(i=0;i<n;i++){
@@ -60,10 +69,15 @@ public class Rand {
         String type = gift[select];
         int price = random.nextInt(100000);
         int value = random.nextInt(100000);
+        int zzz =  0;
+        int yyy = 0;
         try (BufferedWriter bw4 = new BufferedWriter(new FileWriter(tofa,true))) {
-			
-                        String commit =type+","+price+","+value+'\r'+'\n';
-                            bw4.write(commit);
+                    String commit;
+                    if(type.equalsIgnoreCase("Essential"))
+                            commit =type+","+price+","+value+'\r'+'\n';
+                    else
+                        commit =type+","+price+","+value+","+zzz+","+yyy+'\r'+'\n';
+                    bw4.write(commit);
                             //bw.newLine();
                         } catch (IOException e) {
                             }
@@ -83,6 +97,12 @@ public class Rand {
             int pos = random.nextInt(boy.length);
             String type = boy[pos];
             int min = random.nextInt(200);
+             try (BufferedWriter bw10 = new BufferedWriter(new FileWriter(guys,true))) {
+                String commit;
+
+			bw10.write(name+'\r'+'\n');
+                        } catch (IOException e) {
+                            }
             try (BufferedWriter bw5 = new BufferedWriter(new FileWriter(ladka,true))) {
 			
                         String commit = name+","+budg+","+intel+","+attra+","+type+","+min+'\r'+'\n';
@@ -104,7 +124,8 @@ public class Rand {
             int attra = random.nextInt(200);
             int pos = random.nextInt(girl.length);
             String type = girl[pos];
-            String crit = "zz";
+            int zz = random.nextInt(criteria.length);
+            String crit = criteria[zz];
             try (BufferedWriter bw6 = new BufferedWriter(new FileWriter(ladki,true))) {
 			
                         String commit = name+","+maint+","+intel+","+attra+","+type+","+crit+'\r'+'\n';

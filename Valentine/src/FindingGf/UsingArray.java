@@ -3,19 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package questions;
+package FindingGf;
 
 import Boy.Boy;
 import girl.Girl;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import valentine.Valentine;
 import static valentine.Valentine.Count;
 
@@ -23,23 +26,18 @@ import static valentine.Valentine.Count;
  *
  * @author redith
  */
-public class Q1 {
-         static Boy[] boy;
-         static Girl[] girl;
-         static int b;
-         static int g;
-         static int c=0;
-    public Q1()  {
-        
-         //System.out.println(c);
-    }
-    public static void commit() throws IOException{
+public class UsingArray {
+    ArrayList<ArrayList<String>> committed = new ArrayList<ArrayList<String>>();
+    int index=0;
+    public void store() throws IOException{
+        Boy[] boy;
+        Girl[] girl;
+        int b;
+        int g;
+        int c=0;
         File ladka = new File("ladka.csv");
         String absladka = ladka.getAbsolutePath();
         File out = new File("Output.txt");
-        
-
-
         b = Count(absladka)-1;
         boy = new Boy[b];
         File ladki = new File("ladki1.csv");
@@ -68,6 +66,7 @@ public class Q1 {
                             girl[j].setStatus(true);
                             boy[i].setGf(girl[j]);
                             girl[j].setBf(boy[i]);
+                            committed.add(new ArrayList<String>(Arrays.asList(boy[i].getName(),girl[j].getName())));
                             DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
                             Date dateobj = new Date();
                             String commit ="Commitment @"+df.format(dateobj)+" "+ boy[i].getName() + " is committed to "+girl[j].getName()+" "+'\r'+'\n' ;
@@ -78,21 +77,21 @@ public class Q1 {
                         } catch (IOException e) {
                             }
                              c++;
+                             index++;
                         }
                 }
            }   
         }
+        
     }
-     public static void main(String[] args) throws IOException {
-        // TODO code application logic here
-       commit();
-       int i=0;
-       int j = 0;
-       System.out.println("The Committed couples are:");
-       for(i=0;i<g;i++){
-           if((girl[i].isStatus()))
-            System.out.println(girl[i].getBf().getName()+" "+girl[i].getName());
-       }
+    public String search(String guy){
+        int i;
+        for(i=0;i<committed.size();i++){
+            if(committed.get(i).get(0).equalsIgnoreCase(guy))
+                return committed.get(i).get(1); 
+        }
+        return "Not Committed";
     }
-    
 }
+
+   

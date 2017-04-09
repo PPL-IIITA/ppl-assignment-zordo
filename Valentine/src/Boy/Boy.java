@@ -5,13 +5,15 @@
  */
 package Boy;
 
+import gift.Gift;
 import girl.Girl;
+import java.util.ArrayList;
 
 /**
  *
  * @author redith
  */
-public class Boy {
+public abstract class Boy {
     private String name;
     private int budget;
     private int intelligence;
@@ -20,8 +22,10 @@ public class Boy {
     private boolean status = false;
     private String type;
     private int minattract;
+    private int expense;
     private double happiness;
-
+    private ArrayList<Girl> ex = new ArrayList<Girl>();
+    
     public Boy(String name, int budget, int intelligence, int attractiveness, String type, int minattract) {
         this.name = name;
         this.budget = budget;
@@ -30,8 +34,20 @@ public class Boy {
         this.type = type;
         this.minattract = minattract;
     }
- 
 
+    public ArrayList<Girl> getEx() {
+        return ex;
+    }
+    
+    public int getExpense() {
+        return expense;
+    }
+
+    public void setExpense(int expense) {
+        this.expense = expense;
+    }
+    public abstract void gifther(Girl girl,int gif,Gift[] gift);
+    public abstract void gifther2(Girl girl,int gif,Gift[] gift);
     public void setStatus(boolean status) {
         this.status = status;
     }
@@ -43,7 +59,7 @@ public class Boy {
     public String getType() {
         return type;
     }
-
+    public abstract void setHappiness();
     public void setHappiness(double happiness) {
         this.happiness = happiness;
     }

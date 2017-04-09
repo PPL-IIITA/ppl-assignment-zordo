@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package questions;
+package FindingGf;
 
 import Boy.Boy;
 import girl.Girl;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import valentine.Valentine;
 import static valentine.Valentine.Count;
 
@@ -23,23 +22,19 @@ import static valentine.Valentine.Count;
  *
  * @author redith
  */
-public class Q1 {
-         static Boy[] boy;
-         static Girl[] girl;
-         static int b;
-         static int g;
-         static int c=0;
-    public Q1()  {
-        
-         //System.out.println(c);
-    }
-    public static void commit() throws IOException{
+public class HashTable extends BinarySearch {
+    HashMap<String,String> committed = new HashMap<String,String>(); 
+   
+    @Override
+     public void store() throws IOException{
+        Boy[] boy;
+        Girl[] girl;
+        int b;
+        int g;
+        int c=0;
         File ladka = new File("ladka.csv");
         String absladka = ladka.getAbsolutePath();
         File out = new File("Output.txt");
-        
-
-
         b = Count(absladka)-1;
         boy = new Boy[b];
         File ladki = new File("ladki1.csv");
@@ -68,6 +63,7 @@ public class Q1 {
                             girl[j].setStatus(true);
                             boy[i].setGf(girl[j]);
                             girl[j].setBf(boy[i]);
+                            committed.put(boy[i].getName(),girl[j].getName());
                             DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
                             Date dateobj = new Date();
                             String commit ="Commitment @"+df.format(dateobj)+" "+ boy[i].getName() + " is committed to "+girl[j].getName()+" "+'\r'+'\n' ;
@@ -78,21 +74,20 @@ public class Q1 {
                         } catch (IOException e) {
                             }
                              c++;
+                             index++;
                         }
                 }
            }   
         }
+        
     }
-     public static void main(String[] args) throws IOException {
-        // TODO code application logic here
-       commit();
-       int i=0;
-       int j = 0;
-       System.out.println("The Committed couples are:");
-       for(i=0;i<g;i++){
-           if((girl[i].isStatus()))
-            System.out.println(girl[i].getBf().getName()+" "+girl[i].getName());
-       }
+
+    @Override
+    public String search(String guy) {
+        if(committed.containsKey(guy))
+            return committed.get(guy);
+        else            
+           return "Not Committed" ;//To change body of generated methods, choose Tools | Templates.
     }
-    
+     
 }

@@ -10,7 +10,7 @@ package valentine;
  * @author redith
  */
 import Boy.*;
-import gift.Gift;
+import gift.*;
 import girl.*;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -33,6 +33,24 @@ public class Valentine {
           
         
 }
+     public Valentine(Boy[] boy) throws IOException {
+         
+        readCSVguy(boy);
+       
+        
+   //       readCSVgirl(girl);
+          
+        
+}
+      public Valentine(Girl[] girl) throws IOException {
+         
+ //       readCSVguy(boy);
+       
+        
+          readCSVgirl(girl);
+          
+        
+}
     public Valentine(Gift[] gift) throws IOException{
         readCSVgift(gift);
     }
@@ -46,7 +64,18 @@ public class Valentine {
             String type = fields[0];
             int price = Integer.parseInt(fields[1]);
             int value = Integer.parseInt(fields[2]);
-            gift[i] = new Gift(type,price,value);
+            if(type.equalsIgnoreCase("Luxury")){
+             int a = Integer.parseInt(fields[3]);
+             int b = Integer.parseInt(fields[4]);
+             gift[i] = new Luxury(a,b,type,price,value); 
+            }
+            else if(type.equalsIgnoreCase("Utility")){
+               int a = Integer.parseInt(fields[3]);
+             int b = Integer.parseInt(fields[4]);
+             gift[i] = new Utility(a,b,type,price,value);  
+            }
+            else 
+                gift[i] = new Gift(type,price,value);
            i++;
              }
         br.close();
@@ -63,7 +92,12 @@ public class Valentine {
             int attr = Integer.parseInt(fields[3]);
             String type = fields[4];
             int min =  Integer.parseInt(fields[5]);
-            boy[i] = new Boy(name,budget,intel,attr,type,min);
+            if(type.equalsIgnoreCase("Miser"))
+                boy[i] = new Miser(name,budget,intel,attr,type,min);
+            else if(type.equalsIgnoreCase("Generous"))
+                 boy[i] = new Generous(name,budget,intel,attr,type,min);
+            else if(type.equalsIgnoreCase("Geek"))
+                 boy[i] = new Geek(name,budget,intel,attr,type,min);
            i++;
              }
         br.close();
@@ -81,7 +115,12 @@ public class Valentine {
             int attr = Integer.parseInt(fields[3]);
             String type = fields[4];
             String crit =  fields[5];
-            girl[i] = new Girl(name,maintain,intel,attr,type,crit);
+            if(type.equalsIgnoreCase("Choosy"))
+                girl[i] = new Choosy(name,maintain,intel,attr,type,crit);
+            else if(type.equalsIgnoreCase("Normal"))
+                girl[i] = new Normal(name,maintain,intel,attr,type,crit);
+            else if(type.equalsIgnoreCase("Desperate"))
+                girl[i] = new Desperate(name,maintain,intel,attr,type,crit);
            i++;
              }
         br2.close();
