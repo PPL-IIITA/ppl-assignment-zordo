@@ -1,4 +1,11 @@
-To compile: javac -d classes -cp src src/*/*.java
-For random input: java -cp classes rand.Rand "no. of boys" "no. of girls" "no. of gifts" (without qoutes)
-For Question 1: java -cp classes questions.Q1
-For Question 2: java -cp classes questions.Q2 "value of k" (without quotes)
+To compile: javac -d build/classes -cp src src/*/*.java
+For random input: java -cp build/classes rand.Rand 
+For Question 1: java -cp build/classes questions.Q1
+For Question 2: java -cp build/classes questions.Q2   
+For Question 3: java -cp build/classes questions.Q3
+.
+.
+.
+.
+.
+Similarly, till question number 9
